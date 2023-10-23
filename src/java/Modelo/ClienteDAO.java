@@ -97,7 +97,7 @@ public class ClienteDAO {
                 cli.setEstado(rs.getString(5));
             }
         }catch(Exception ex){
-            System.out.println("#### Error AL Buscar Producto #### "+ex);
+            System.out.println("#### Error AL Buscar Cliente #### "+ex);
         }
         return cli;
     }
