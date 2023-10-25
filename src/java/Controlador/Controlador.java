@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Configuracion.GenerarSerie;
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import Modelo.Empleado;
@@ -11,6 +12,7 @@ import Modelo.EmpleadoDAO;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
 import Modelo.Venta;
+import Modelo.VentaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,6 +21,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import sun.security.jgss.GSSUtil;
 
 /**
  *
@@ -33,6 +36,7 @@ public class Controlador extends HttpServlet {
     ClienteDAO clidao = new ClienteDAO();
     Producto pro = new Producto();
     ProductoDAO prodao = new ProductoDAO();
+    VentaDAO  vdao = new VentaDAO();
     
     Venta  v = new Venta();
     List<Venta> lista = new ArrayList<>();
@@ -43,6 +47,8 @@ public class Controlador extends HttpServlet {
     int cant;
     double subtotal;
     double totalPagar;
+    
+    String numeroserie;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -202,13 +208,16 @@ public class Controlador extends HttpServlet {
                     case "BuscarCliente":
                         String dni = request.getParameter("codigocliente");
                         cli.setDni(dni);
-                        request.setAttribute("cliente", clidao.buscar(dni));
+                        cli = clidao.buscar(dni);
+                        request.setAttribute("cliente", cli);
                         break;
                     case "BuscarProducto":
                         int id = Integer.parseInt(request.getParameter("codigoproducto"));
                         pro = prodao.listarId(id);
+                        request.setAttribute("cliente", cli);
                         request.setAttribute("producto", prodao.listarId(id));
                         request.setAttribute("lista", lista);
+                        request.setAttribute("totalpagar", totalPagar);
                         break;
                     case "Agregar":
                         totalPagar = 0.0;
@@ -233,6 +242,16 @@ public class Controlador extends HttpServlet {
                         request.setAttribute("lista", lista);
                         break;
                     default:
+                        numeroserie = vdao.GenerarSerie();
+                        if(numeroserie == null){
+                            numeroserie = "0000001";
+                            request.setAttribute("nserie", numeroserie);
+                        }else{
+                            int incrementar = Integer.parseInt(numeroserie);
+                            GenerarSerie gs = new GenerarSerie();
+                            numeroserie = gs.NumeroSerie(incrementar);
+                            request.setAttribute("nserie", numeroserie);
+                        }
                          request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
                 }
                 request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
