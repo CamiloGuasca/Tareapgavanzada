@@ -39,7 +39,7 @@ public class ClienteDAO {
                 cli.setEstado(rs.getString(5));
             }
         }catch(Exception ex){
-            System.out.println("#### Error AL Buscar Producto #### "+ex);
+            System.out.println("#### Error AL Buscar Producto #### "+ex.getMessage());
         }
         return cli;
     }
@@ -61,7 +61,7 @@ public class ClienteDAO {
                 lista.add(cli);
             }
         }catch(Exception ex){
-            System.out.println("???? Error al listar clientes ???? "+ex);
+            System.out.println("???? Error al listar clientes ???? "+ex.getMessage());
         }
         return lista;
     }
@@ -78,7 +78,7 @@ public class ClienteDAO {
             ps.executeUpdate();
             
         }catch (Exception ex){
-            System.out.println("&&&& Error Al Insertar Cliente &&&&"+ex);
+            System.out.println("&&&& Error Al Insertar Cliente &&&&"+ex.getMessage());
         }
         return r;
     }
@@ -97,7 +97,7 @@ public class ClienteDAO {
                 cli.setEstado(rs.getString(5));
             }
         }catch(Exception ex){
-            System.out.println("#### Error AL Buscar Cliente #### "+ex);
+            System.out.println("#### Error AL Buscar Cliente #### "+ex.getMessage());
         }
         return cli;
     }
@@ -111,10 +111,10 @@ public class ClienteDAO {
             ps.setString(2, cli.getNombres());
             ps.setString(3, cli.getDireccion());
             ps.setString(4, cli.getEstado());
-            ps.setInt(6, cli.getIdCliente());
+            ps.setInt(5, cli.getIdCliente());
             ps.executeUpdate();
         }catch (Exception ex){
-            System.out.println("!!!! Error Al Actualizar Cliente !!!! "+ex);
+            System.out.println("!!!! Error Al Actualizar Cliente !!!! "+ex.getMessage());
         }
         return r;
     }
@@ -125,7 +125,7 @@ public class ClienteDAO {
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("//// Error Al Eliminar Cliente ////");
+            System.out.println("//// Error Al Eliminar Cliente ////"+ex.getMessage());
         }
     }
 }

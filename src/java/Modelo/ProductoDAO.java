@@ -38,7 +38,7 @@ public class ProductoDAO {
               pr.setEstado(rs.getString("Estado"));
             }
         }catch(Exception ex){
-            System.out.println("|||| Error Al Listar Producto |||| "+ex);
+            System.out.println("|||| Error Al Listar Producto |||| "+ex.getMessage());
         }
         return pro;
     }
@@ -53,7 +53,7 @@ public class ProductoDAO {
             ps.setString(5, pro.getEstado());
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("==== Error Al Agregar Producto ===="+ex);
+            System.out.println("==== Error Al Agregar Producto ===="+ex.getMessage());
         }
         return r;
     }
@@ -72,7 +72,7 @@ public class ProductoDAO {
                 pro.setEstado(rs.getString(5));
             }
         }catch(Exception ex){
-            System.out.println("#### Error Al Buscar Producto ####"+ex);
+            System.out.println("#### Error Al Buscar Producto ####"+ex.getMessage());
         }
         return pro;
     }
@@ -89,7 +89,7 @@ public class ProductoDAO {
             ps.setInt(5, pro.getIdProducto());
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("%%%% Error Al Actualizar Producto %%%%"+ex);
+            System.out.println("%%%% Error Al Actualizar Producto %%%%"+ex.getMessage());
         }
         return r;
     }
@@ -101,7 +101,7 @@ public class ProductoDAO {
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("$$$$ Error Al Borrar Producto $$$$");
+            System.out.println("$$$$ Error Al Borrar Producto $$$$"+ex.getMessage());
         }
     }
 }

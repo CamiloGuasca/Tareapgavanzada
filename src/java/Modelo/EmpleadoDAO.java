@@ -64,7 +64,7 @@ public class EmpleadoDAO {
                 lista.add(em);
             }
         }catch (Exception ex){
-            System.out.println("°°°Error al consultar empleado (EmpleadoDAO) °°°°° "+ex);
+            System.out.println("°°°Error al consultar empleado (EmpleadoDAO) °°°°° "+ex.getMessage());
         }
         return lista;
     }
@@ -80,7 +80,7 @@ public class EmpleadoDAO {
             ps.setString(5, em.getUser());
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("°°°Error al insertar el empleado °°°°° "+ex);
+            System.out.println("°°°Error al insertar el empleado °°°°° "+ex.getMessage());
         }   
         return r;
     }
@@ -99,7 +99,7 @@ public class EmpleadoDAO {
                 emp.setUser(rs.getString(6));
             }
         }catch(Exception ex){
-            System.out.println("°°°Error al consultar el empleado °°°°° "+ex);            
+            System.out.println("°°°Error al consultar el empleado °°°°° "+ex.getMessage());            
         }
         return emp;
     }
@@ -116,7 +116,7 @@ public class EmpleadoDAO {
             ps.setInt(6, em.getId());
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("°°°Error al insertar el empleado °°°°° "+ex);
+            System.out.println("°°°Error al insertar el empleado °°°°° "+ex.getMessage());
         }   
         return r;
     }
@@ -127,7 +127,7 @@ public class EmpleadoDAO {
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
         }catch(Exception ex){
-            System.out.println("°°°Error al eliminar el empleado °°°°° "+ex);
+            System.out.println("°°°Error al eliminar el empleado °°°°° "+ex.getMessage());
         }
     }
 }

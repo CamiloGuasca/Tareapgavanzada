@@ -63,7 +63,6 @@ public class Controlador extends HttpServlet {
                         request.getRequestDispatcher("Controlador?menu=Empleado&accion=Listar").forward(request, response);
                         break;
                     case "Actualizar":
-                        ide = Integer.parseInt(request.getParameter("id"));
                         String dni1 = request.getParameter("txtDni");
                         String nom1 = request.getParameter("txtNombres");
                         String tel1 = request.getParameter("txtTelefono");
@@ -115,7 +114,6 @@ public class Controlador extends HttpServlet {
                         request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar").forward(request, response);
                         break;
                     case "Actualizar":
-                        ide = Integer.parseInt(request.getParameter("id"));
                         String dni1 = request.getParameter("txtDni");
                         String nom1 = request.getParameter("txtNombres");
                         String dir1 = request.getParameter("txtDireccion");
