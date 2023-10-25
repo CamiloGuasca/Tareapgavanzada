@@ -45,7 +45,7 @@ public class ClienteDAO {
     }
         
     public List Listar(){
-        String sql = "SELECT * FROM Cliente";
+        String sql = "SELECT * FROM cliente";
         List<Cliente>lista = new ArrayList<>();
         try{
             con = cn.Conexion();
@@ -58,6 +58,7 @@ public class ClienteDAO {
                 cli.setNombres(rs.getString("Nombres"));
                 cli.setDireccion(rs.getString("Direccion"));
                 cli.setEstado(rs.getString("Estado"));
+                lista.add(cli);
             }
         }catch(Exception ex){
             System.out.println("???? Error al listar clientes ???? "+ex);
@@ -66,15 +67,14 @@ public class ClienteDAO {
     }
     
     public int agregar(Cliente cli){
-        String sql = "INSERT INTO cliente(IdCliente,Dni, Nombres, Direccion, Estado) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(Dni, Nombres, Direccion, Estado) VALUES (?,?,?,?)";
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, cli.getIdCliente());
-            ps.setString(2, cli.getDni());
-            ps.setString(3, cli.getNombres());
-            ps.setString(4, cli.getDireccion());
-            ps.setString(5, cli.getDireccion());
+            ps.setString(1, cli.getDni());
+            ps.setString(2, cli.getNombres());
+            ps.setString(3, cli.getDireccion());
+            ps.setString(4, cli.getEstado());
             ps.executeUpdate();
             
         }catch (Exception ex){

@@ -39,7 +39,7 @@ public class EmpleadoDAO {
                 em.setNom(rs.getString("Nombres"));
             }
         }catch (Exception e){
-            System.out.println("||||||| Error en la busqueda ||||||| -->"+e);
+            System.out.println("||||||| Error en la busqueda ||||||| -->"+e.getMessage());
         }
         return em;
     }
@@ -61,7 +61,6 @@ public class EmpleadoDAO {
                 em.setTel(rs.getString(4));
                 em.setEstado(rs.getString(5));
                 em.setUser(rs.getString(6));
-                System.out.println("====== LISTADO EMP EXITOSO =============");
                 lista.add(em);
             }
         }catch (Exception ex){
