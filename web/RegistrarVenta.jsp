@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Modelo.Venta" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,18 +18,18 @@
         <div class="d-flex">
             <div class="col-sm-5">
                 <div class="card">
-                    <form action="Controlador" method="post">
+                    <form action="Controlador?menu=NuevaVenta" method="post">
                     <div class="card-body">
                         <div class="form-group">
                             <label>Datos Del Cliente</label>   
                         </div>
                         <div class="form-group d-flex">
                             <div class="col-sm-6 d-flex">
-                                <input type="text" name="codigocliente" class="form-control" placeholder="Código">
-                                <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
+                                <input type="text" name="codigocliente" value="${cliente.getDni()}" class="form-control" placeholder="Código">
+                                <input type="submit" name="accion" value="BuscarCliente" class="btn btn-outline-info">
                             </div>     
                             <div class="col-sm-6"> 
-                                <input type="text" name="nombrescliente" placeholder="Datos Cliente" class="form-control">
+                                <input type="text" name="nombrescliente" value="${cliente.getNombres()}" placeholder="Datos Cliente" class="form-control">
                             </div>    
                         </div>
                         <div class="form-group">
@@ -35,26 +37,26 @@
                         </div>
                         <div class="form-group d-flex">
                            <div class="col-sm-6 d-flex">
-                                <input type="text" name="codigoproducto" class="form-control" placeholder="Código">
-                                <input type="submit" name="accion" value="Buscar" placeholder="Datos Producto" class="btn btn-outline-info">
+                               <input type="text" name="codigoproducto" class="form-control" value="${producto.getIdProducto()}" placeholder="Código">
+                                <button type="submit" name="accion" value="BuscarProducto" placeholder="Datos Producto" class="btn btn-outline-info">Buscar</button>
                             </div>     
                             <div class="col-sm-6"> 
-                                <input type="text" name="nombrecliente" class="form-control">
+                                <input type="text" name="nomproducto" value="${producto.getNombres()}" class="form-control">
                             </div> 
                         </div>
                         <div class="form-group d-flex">
                             <div class="col-sm-6 d-flex">
-                                <input type="text" name="precio" class="form-control" placeholder="S/0.00">
+                                <input type="text" name="precio" value="${producto.getPrecio()}" class="form-control" placeholder="S/0.00">
                             </div>     
                             <div class="col-sm-3"> 
-                                <input type="number" name="cant" class="form-control" >
+                                <input type="number" name="cant" value="1" class="form-control" >
                             </div>  
                             <div class="col-sm-3"> 
-                                <input type="text" name="stock" placeholder="Stock" class="form-control">
+                                <input type="text" name="stock" value="${producto.getStock()}" placeholder="Stock" class="form-control">
                             </div>  
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="accion" value="Agregar" class="btn btn-outline-info">
+                            <button type="submit" name="accion" value="Agregar" class="btn btn-outline-info">Agregar Producto</button>
                         </div>
                     </div>
                         </form>
@@ -64,7 +66,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex col-sm-6 ml-auto">
-                            <label>Número De Serie</label>
+                            <label class="col-sm-5">Número De Serie</label>
                             <input type="text" name="NroSerie" class="form-control">
                         </div>
                         <table class="table table-hover">
@@ -80,23 +82,36 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <%
+                                    List<Venta> ven = (List<Venta>) request.getAttribute("lista");
+                                    if(ven != null){
+                                        for(Venta v : ven){
+                                %>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><%=v.getItem()%></td>
+                                    <td><%=v.getId()%></td>
+                                    <td><%=v.getDescripcionP()%></td>
+                                    <td><%=v.getPrecio()%></td>
+                                    <td><%=v.getCantidad()%></td>
+                                    <td><%=v.getSubtotal()%></td>
+                                    <td class="d-flex">
+                                        <a href="" class="btn btn-warning">Editar</a>
+                                        <a href="" class="btn btn-danger" style="margin-left: 10px;">Eliminar</a>
+                                    </td>
                                 </tr>
+                                <%     }
+                                   }%>
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer">
-                        <div>
+                    <div class="card-footer d-flex">
+                        <div class="col-sm-6">
                             <input type="submit" name="accion" value="Generar Venta" class="btn btn-success">
                             <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
                         </div>
+                        <div class="col-sm-4 ml-auto">
+                            <input type="text" value="${totalpagar}" name="txtTotal" class="form-control">
+                        </div> 
                     </div>
                 </div>    
             </div>

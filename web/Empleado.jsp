@@ -60,7 +60,7 @@
                     </thead>
                     <tbody>
                         <%
-                           List<Empleado> empleados = (List<Empleado>) request.getAttribute("empleados"); // Obtén la lista de empleados del ámbito de la solicitud
+                           List<Empleado> empleados = (List<Empleado>) request.getAttribute("empleados");
                            for(Empleado em : empleados) {
                         %>
                             <tr>

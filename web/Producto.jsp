@@ -1,5 +1,5 @@
 <%-- 
-    Document   : Empleado
+    Document   : Producto
     Created on : Oct 18, 2023, 8:57:18 PM
     Author     : camilog
 --%>

@@ -30,7 +30,7 @@
                             <a class="nav-link" href="Controlador?menu=Clientes&accion=Listar" target="myFrame">Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Controlador?menu=NuevaVenta" target="myFrame">Nueva Venta</a>
+                            <a class="nav-link" href="Controlador?menu=NuevaVenta&accion=default" target="myFrame">Nueva Venta</a>
                         </li>
                     </ul>
                     <div class="dropdown">
