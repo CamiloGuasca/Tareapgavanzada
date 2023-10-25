@@ -36,6 +36,7 @@ public class ProductoDAO {
               pr.setPrecio(rs. getDouble("Precio"));
               pr.setStock(rs.getInt("Stock"));
               pr.setEstado(rs.getString("Estado"));
+              pro.add(pr);
             }
         }catch(Exception ex){
             System.out.println("|||| Error Al Listar Producto |||| "+ex.getMessage());
@@ -47,10 +48,10 @@ public class ProductoDAO {
         try{
             con = cn.Conexion();
             ps= con.prepareStatement(sql);
-            ps.setString(2, pro.getNombres());
-            ps.setDouble(3, pro.getPrecio());
-            ps.setInt(4, pro.getStock());
-            ps.setString(5, pro.getEstado());
+            ps.setString(1, pro.getNombres());
+            ps.setDouble(2, pro.getPrecio());
+            ps.setInt(3, pro.getStock());
+            ps.setString(4, pro.getEstado());
             ps.executeUpdate();
         }catch(Exception ex){
             System.out.println("==== Error Al Agregar Producto ===="+ex.getMessage());

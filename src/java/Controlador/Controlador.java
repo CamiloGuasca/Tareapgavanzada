@@ -8,6 +8,8 @@ import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
+import Modelo.Producto;
+import Modelo.ProductoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -28,6 +30,8 @@ public class Controlador extends HttpServlet {
     EmpleadoDAO edao = new EmpleadoDAO();
     Cliente cli = new Cliente();
     ClienteDAO clidao = new ClienteDAO();
+    Producto pro = new Producto();
+    ProductoDAO prodao = new ProductoDAO();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String menu = request.getParameter("menu");
@@ -91,8 +95,6 @@ public class Controlador extends HttpServlet {
                 switch (accion){
                     case "Listar":
                         List lista1 = clidao.Listar();
-                        List<Cliente>lis = new ArrayList<>();
-                        lis = lista1;
                         request.setAttribute("clientes", lista1);
                         break;          
                     case "Agregar":
@@ -137,6 +139,50 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("Clientes.jsp").forward(request, response);
             }
             if(menu.equals("Producto")){
+                switch (accion){
+                    case "Listar":
+                        List lista = prodao.Listar();
+                        request.setAttribute("productos", lista);
+                        break;          
+                    case "Agregar":
+                        String nom = request.getParameter("txtNombres");
+                        String pre = request.getParameter("txtPrecio");
+                        String stk = request.getParameter("txtStock");
+                        String est = request.getParameter("txtEstado"); 
+                        pro.setNombres(nom);
+                        pro.setPrecio(Double.parseDouble(pre));
+                        pro.setStock(Integer.parseInt(stk));
+                        pro.setEstado(est);
+                        prodao.agregar(pro);
+                        request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
+                        break;
+                    case "Editar":
+                        ide = Integer.parseInt(request.getParameter("id"));                       
+                        Producto p = prodao.listarId(ide);
+                        request.setAttribute("producto", p);
+                        request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
+                        break;
+                    case "Actualizar":
+                        String nom1 = request.getParameter("txtNombres");
+                        String pre1 = request.getParameter("txtPrecio");
+                        String stk1 = request.getParameter("txtStock");
+                        String est1 = request.getParameter("txtEstado");
+                        pro.setIdProducto(ide);
+                        pro.setNombres(nom1);
+                        pro.setPrecio(Double.parseDouble(pre1));
+                        pro.setStock(Integer.parseInt(stk1));
+                        pro.setEstado(est1);
+                        prodao.actualizar(pro);
+                        request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
+                        break;
+                    case "Delete":
+                        ide = Integer.parseInt(request.getParameter("id"));
+                        prodao.delete(ide);
+                        request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
                 request.getRequestDispatcher("Producto.jsp").forward(request, response);
             }
             if(menu.equals("NuevaVenta")){
