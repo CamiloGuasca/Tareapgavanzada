@@ -22,6 +22,19 @@ public class ProductoDAO {
     ResultSet rs;
     int r = 0;
     
+    public int actualizarstok(int id, int stock){
+        String sql = "UPDATE producto SET Stock = ? WHERE IdProducto = ?";
+        try{
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("#### Error Al Actuazar Stock #### "+ex.getMessage());
+        }
+        return r;
+    }
     public List Listar(){
         String sql = "SELECT * FROM producto";
         List<Producto>pro = new ArrayList<>();

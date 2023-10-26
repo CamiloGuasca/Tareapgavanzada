@@ -209,6 +209,7 @@ public class Controlador extends HttpServlet {
                         String dni = request.getParameter("codigocliente");
                         cli.setDni(dni);
                         cli = clidao.buscar(dni);
+                        request.setAttribute("nserie", numeroserie);
                         request.setAttribute("cliente", cli);
                         break;
                     case "BuscarProducto":
@@ -218,6 +219,7 @@ public class Controlador extends HttpServlet {
                         request.setAttribute("producto", prodao.listarId(id));
                         request.setAttribute("lista", lista);
                         request.setAttribute("totalpagar", totalPagar);
+                        request.setAttribute("nserie", numeroserie);
                         break;
                     case "Agregar":
                         totalPagar = 0.0;
@@ -229,7 +231,7 @@ public class Controlador extends HttpServlet {
                         subtotal = precio*cant;
                         v  = new Venta();
                         v.setItem(item);
-                        v.setId(cod);
+                        v.setIdproducto(cod);
                         v.setDescripcionP(descripcion);
                         v.setPrecio(precio);
                         v.setCantidad(cant);
@@ -238,13 +240,44 @@ public class Controlador extends HttpServlet {
                         for (int c = 0 ; c < lista.size() ; c++) {
                             totalPagar = totalPagar + lista.get(c).getSubtotal();
                         }
+                        request.setAttribute("nserie", numeroserie);
                         request.setAttribute("totalpagar", totalPagar);
                         request.setAttribute("lista", lista);
+                        request.setAttribute("cliente", cli);
+                        break;
+                    case "GenerarVenta":
+                        for (int c = 0; c < lista.size(); c++) {
+                            Producto pr = new Producto();
+                            int cantidad = lista.get(c).getCantidad();
+                            int idproducto = lista.get(c).getIdproducto();
+                            ProductoDAO prdao = new ProductoDAO();
+                            pr = prdao.listarId(idproducto);
+                            int sac  = pr.getStock()-cantidad;
+                            prdao.actualizarstok(idproducto, sac);
+                        }
+                        
+                        v.setIdcliente(cli.getIdCliente());
+                        v.setIdempleado(2);
+                        v.setNumserie(numeroserie);
+                        v.setFecha("2019-06-14");
+                        v.setMonto(totalPagar);
+                        v.setEstado("1");
+                        vdao.guardarVenta(v);
+                        int idv = Integer.parseInt(vdao.IdVentas());
+                        for (int c = 0; c < lista.size(); c++) {
+                            v = new Venta();
+                            v.setId(idv);
+                            v.setIdproducto(lista.get(c).getIdproducto());
+                            v.setCantidad(lista.get(c).getCantidad());
+                            v.setPrecio(lista.get(c).getPrecio());
+                            vdao.guardarDetalleventas(v);
+                        }
                         break;
                     default:
                         numeroserie = vdao.GenerarSerie();
-                        if(numeroserie == null){
-                            numeroserie = "0000001";
+                        
+                        if(numeroserie == null || numeroserie.isEmpty()){
+                            numeroserie = "00000001";
                             request.setAttribute("nserie", numeroserie);
                         }else{
                             int incrementar = Integer.parseInt(numeroserie);
