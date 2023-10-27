@@ -13,10 +13,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <title>Ventas</title>
+        <style>
+            @media print{
+                .parte01, .btn, .accion{
+                    display: none;
+                }
+            }
+        </style>   
     </head>
     <body>
         <div class="d-flex">
-            <div class="col-sm-5">
+            <div class="col-sm-5 parte01">
                 <div class="card">
                     <form action="Controlador?menu=NuevaVenta" method="post">
                     <div class="card-body">
@@ -78,7 +85,7 @@
                                     <th>Precio</th>
                                     <th>Cantidad</th>
                                     <th>Sub Total</th>
-                                    <th>Acciones</th>
+                                    <th class="accion">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,7 +113,7 @@
                     </div>
                     <div class="card-footer d-flex">
                         <div class="col-sm-6">
-                            <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success">Generar Venta</a>
+                            <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" onclick="print()" class="btn btn-success">Generar Venta</a>
                             <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
                         </div>
                         <div class="col-sm-4 ml-auto">
