@@ -3,8 +3,16 @@
     Created on : Oct 16, 2023, 6:30:10 PM
     Author     : camilog
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="Modelo.Empleado" %>
+<%
+    HttpSession sesion = (HttpSession)request.getSession();
+    Empleado emp = (Empleado)sesion.getAttribute("usuario");
+    if (emp == null) {
+        response.sendRedirect("index.jsp");
+    }else{
+            
+%>  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <!DOCTYPE html>
 <html>
@@ -40,9 +48,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">${usuario.getUser()}</a></li>
                           <li><a class="dropdown-item" href="#">
-                                  <img src="img/gratis-png-monstruo-de-ojos-saltones-monstruo.png" alt="usuario" width="60" height="60"/>
+                                  <img src="img/gratis-png-monstruo-de-ojos-saltones-monstruo.png" alt="usuario" width="50" height="50"/>
                       </a></li>
-                  <li><a class="dropdown-item" href="#">papeldormido@gmail.com</a></li>
                   <div class="dropdown-divider"></div>  
                   <form action="Validar" method="post">
                     <li><button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button></li>
@@ -59,3 +66,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
+<%}%>
