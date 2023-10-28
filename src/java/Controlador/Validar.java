@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import sun.net.www.content.text.plain;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Validar extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -65,7 +69,7 @@ public class Validar extends HttpServlet {
         String accion = request.getParameter("accion");
         if(accion.equals("Ingresar")){
             String user = request.getParameter("txtuser");
-            String pass = request.getParameter("txtpass");
+            String pass = edao.conSHA(request.getParameter("txtpass"));
             em = edao.validar(user, pass);
             if(em.getUser() != null){
                 HttpSession  session = request.getSession(true);
@@ -81,6 +85,7 @@ public class Validar extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         processRequest(request, response);
+       
     }
 
     /**  

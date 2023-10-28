@@ -15,17 +15,19 @@ public class Empleado {
     String tel;
     String estado;
     String user;
+    String contra;
 
     public Empleado() {
     }
 
-    public Empleado(int id, String dni, String nom, String tel, String estado, String user) {
+    public Empleado(int id, String dni, String nom, String tel, String estado, String user, String contra) {
         this.id = id;
         this.dni = dni;
         this.nom = nom;
         this.tel = tel;
         this.estado = estado;
         this.user = user;
+        this.contra = contra;
     }
 
     public int getId() {
@@ -75,6 +77,12 @@ public class Empleado {
     public void setUser(String user) {
         this.user = user;
     }
-    
-    
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
+    }   
 }

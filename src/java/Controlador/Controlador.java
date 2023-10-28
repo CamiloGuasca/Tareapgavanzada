@@ -69,11 +69,13 @@ public class Controlador extends HttpServlet {
                         String tel = request.getParameter("txtTelefono");
                         String est = request.getParameter("txtEstado");
                         String user = request.getParameter("txtUsuario");
+                        String contra = request.getParameter("txtContra");
                         em.setDni(dni);
                         em.setNom(nom);
                         em.setTel(tel);
                         em.setEstado(est);
                         em.setUser(user);
+                        em.setContra(edao.conSHA(contra));
                         edao.agregar(em);
                         request.getRequestDispatcher("Controlador?menu=Empleado&accion=Listar").forward(request, response);
                         break;
@@ -90,12 +92,14 @@ public class Controlador extends HttpServlet {
                         String tel1 = request.getParameter("txtTelefono");
                         String est1 = request.getParameter("txtEstado");
                         String user1 = request.getParameter("txtUsuario");
+                        String contra1 = request.getParameter("txtContra");
                         em.setDni(dni1);
                         em.setNom(nom1);
                         em.setTel(tel1);
                         em.setEstado(est1);
                         em.setUser(user1);
                         em.setId(ide);
+                        em.setContra(edao.conSHA(contra1));
                         edao.actualizar(em);
                         request.getRequestDispatcher("Controlador?menu=Empleado&accion=Listar").forward(request, response);
                         break;

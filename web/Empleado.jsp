@@ -47,6 +47,10 @@
                             <label>Usuario</label>
                             <input type="text" value="${empleado.getUser()}" name="txtUsuario" class="form-control">
                         </div>
+                            <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="text" value="${empleado.getContra()}" name="txtContra" class="form-control">
+                        </div>
                         <br>
                         <input type="submit" name="accion" value="Agregar" class="btn btn-info">   
                         <input type="submit" name="accion" value="Actualizar" class="btn btn-success">   
@@ -63,6 +67,7 @@
                             <th>Telefono</th>
                             <th>Estado</th>
                             <th>User</th>
+                            <th>Contraseña</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -78,6 +83,7 @@
                                 <td><%=em.getTel()%></td>
                                 <td><%=em.getEstado()%></td>
                                 <td><%=em.getUser()%></td>
+                                <td style="max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%=em.getContra()%></td>
                                 <td>
                                     <a href="Controlador?menu=Empleado&accion=Editar&id=<%=em.getId()%>" class="btn btn-warning">Editar</a>
                                     <a href="Controlador?menu=Empleado&accion=Delete&id=<%=em.getId()%>" class="btn btn-danger">Eliminar</a>
